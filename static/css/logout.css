@@ -1,0 +1,16 @@
+h5{
+    font-size: 32px !important;
+}
+#logout{
+    margin-top: 250px !important;
+    margin-bottom: 250px !important;
+}
+a{
+    color: darkred !important;
+}
+a:hover{
+    color: red !important;
+}
+#brand{
+    text-decoration: none !important;
+}

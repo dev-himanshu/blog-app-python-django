@@ -1,0 +1,65 @@
+{% extends 'blogApplication base/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Blog Application: {{ title }}</title>
+    <link rel = "icon" href="{% static 'images/icon.png' %}" type = "image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+{% endblock title %}
+
+{% block content %}
+    {% if messages %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul type="disc">
+                  {% for message in messages %}
+                      <div class="alert alert-success" role="alert">
+                          {{ message }}
+                      </div>
+                  {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="container mt-2" id="posts_section">
+      <div class="row">
+        <div class="col text-center mt-4">
+          <h2>Create Account</h2>
+        </div>
+      </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputFullName">Full Name</label>
+                  {{ form.fullname }}
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputEmail">Email</label>
+                  {{ form.emailId }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputBio">Bio</label>
+                {{ form.bio }}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputUsername">Username</label>
+                  {{ form.username }}
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword">Password</label>
+                  {{ form.password }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="{% url 'loginPage' %}">Already Registered?</a>
+        </form>
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,119 @@
+{% extends 'blogApplication base/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    <title>Blog Application: {{ title }}</title>
+    <link rel = "icon" href="{% static 'images/icon.png' %}" type = "image/x-icon">
+{% endblock title %}
+
+
+{% block content %}
+        <div class="container mt-5"  id="main_section">
+        <div class="row text-right">
+            <div class="col">
+                {% if request.user.is_authenticated %}
+                    <div class="btn-group">
+                      <button class="btn btn-secondary btn-md dropdown-toggle" id="user_dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ name }}
+                      </button>
+                      <div class="dropdown-menu" id="dropdown">
+                        <a class="dropdown-item" href="{% url 'IndexPage' %}">Home</a>
+                          <a class="dropdown-item" href="{% url 'homePage' %}">My Posts</a>
+                        <a class="dropdown-item" href="{% url 'profilePage' %}">Profile</a>
+                        <a class="dropdown-item" href="{% url 'settingAuthor' %}">Settings</a>
+                          <a class="dropdown-item" href="{% url 'writeBlogPage' %}">Write Blog</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logoutPage' %}">Logout</a>
+                      </div>
+                    </div>
+                {% else %}
+                    <div class="btn-group">
+                      <a href="{% url 'loginPage' %}">
+                          <button class="btn btn-secondary btn-md " type="button">
+                            Login
+                          </button>
+                      </a>
+                    </div>
+                {% endif %}
+            </div>  <!--end of col-->
+        </div>  <!--end of row-->
+    </div>  <!--end of container-->
+    <div class="container mt-2" id="main_section">
+    <div class="row">
+      <div class="col">
+        <img src="{% static 'images/main_section_image.png' %}" class="img-fluid">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <blockquote class="blockquote text-center">
+          <p class="mb-0">“Don’t focus on having a great blog. Focus on producing a blog that’s great for your readers.”</p>
+          <footer class="blockquote-footer">Written by <cite title="Source Title">Brian Clark</cite></footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+    <div class="container mt-2" id="posts_section">
+      <div class="row">
+        <div class="col text-center mt-4">
+          <h2>Posts</h2>
+        </div>
+      </div>
+        {% if blogs %}
+        {% for blog in blogs %}
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="post/{{ blog.id }}">
+                      <h5 class="card-title" style="font-weight: bolder">{{ blog.title }}</h5>
+                      <p class="card-text">{{ blog.excerpt }}</p>
+                      <div class="row">
+                        <div class="col-6">
+                          <p class="card-text"><small class="text-muted">Posted on {{ blog.blogDateTime }}</small></p>
+                        </div>
+                        <div class="col-6">
+                          <p class="card-text text-right"><small class="text-muted">Posted by {{ blog.author.fullname }}</small></p>
+                        </div>
+                      </div>
+                        </a>
+                    </div>
+                  </div>
+            </div>  <!--end of col-->
+        </div>  <!--end of row-->
+        {% endfor %}
+            {% else %}
+            <div class="row text-center mt-5">
+                <div class="col">
+                    <h1 style="font-size: 20px">No Post yet.</h1>
+                </div>
+            </div>
+        {% endif %}
+        <!--Start Pagination-->
+      <div class="row mt-2">
+        <div class="col">
+          <nav aria-label="Page navigation example">
+           <div class="pagination" style="float: right !important;color: #bcbab8 !important;">
+                <span class="step-links">
+                    {% if blogs.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ blogs.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="current">
+                        Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
+                    </span>
+                    {% if blogs.has_next %}
+                        <a href="?page={{ blogs.next_page_number }}">next</a>
+                        <a href="?page={{ blogs.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+           </div>
+          </nav>
+        </div>
+      </div>
+      <!--End Pagination-->
+    </div>  <!--This close div of Container class-->
+{% endblock content %}

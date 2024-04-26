@@ -1,0 +1,63 @@
+{% extends 'blogApplication base/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Blog Application: {{ title }}</title>
+    <link rel = "icon" href="{% static 'images/icon.png' %}" type = "image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row text-right">
+            <div class="col">
+                    <div class="btn-group">
+                      <button class="btn btn-secondary btn-md dropdown-toggle" id="user_dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ user }}
+                      </button>
+                      <div class="dropdown-menu" id="dropdown">
+                        <a class="dropdown-item" href="{% url 'IndexPage' %}">Home</a>
+                          <a class="dropdown-item" href="{% url 'homePage' %}">My Posts</a>
+                        <a class="dropdown-item" href="{% url 'profilePage' %}">Profile</a>
+                        <a class="dropdown-item" href="{% url 'settingAuthor' %}">Settings</a>
+                          <a class="dropdown-item" href="{% url 'writeBlogPage' %}">Write Blog</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logoutPage' %}">Logout</a>
+                      </div>
+                    </div>
+            </div>  <!--end of col-->
+        </div>  <!--end of row-->
+    </div>  <!--end of container-->
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h5>Write Blog</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    {{ blog_form.title }}
+                  </div>
+                  <div class="form-group">
+                    <label for="inputExcerpt">Excerpt</label>
+                    {{ blog_form.excerpt }}
+                  </div>
+                  <div class="form-group">
+                    <label for="inputBlog">Write your blog</label>
+                    {{ blog_form.blog }}
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg btn-block">Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

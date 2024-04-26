@@ -1,0 +1,81 @@
+body{
+    background-color: #ffffff;
+}
+#brand{
+    font-family: 'Grenze Gotisch',cursive;
+    color: #272643;
+}
+hr {
+    border: none;
+    height: 20px;
+    width: 90%;
+    height: 50px;
+    margin-top: 0;
+    border-bottom: 1px solid #1f1209;
+    box-shadow: 0 20px 20px -20px #333;
+    margin: -50px auto 10px;
+}
+@media only screen and (max-width: 720px)
+{
+    #brand{
+        font-size: 8vw;
+    }
+}
+@media only screen and (min-width: 720px) {
+    #brand {
+        font-size: 5vw;
+    }
+}
+
+#posts_section{
+    /* background-color: lightgrey; */
+    /* height: 1030px; */
+}
+
+@media only screen and (max-width: 1440px) {
+    h2 {
+        font-size: 4vw;
+    }
+}
+@media only screen and (max-width: 1080px) {
+    h2 {
+        font-size: 4vw;
+    }
+}
+@media only screen and (max-width: 980px) {
+    h2 {
+        font-size: 5vw;
+    }
+}
+@media only screen and (max-width: 720px) {
+    h2 {
+        font-size: 6vw;
+    }
+}
+@media only screen and (max-width: 620px) {
+    h2 {
+        font-size: 7vw;
+    }
+}
+@media only screen and (max-width: 480px) {
+    h2 {
+        font-size: 8vw;
+    }
+}
+@media only screen and (max-width: 380px) {
+    h2 {
+        font-size: 9vw;
+    }
+}
+@media only screen and (min-width: 1440px) {
+    h2 {
+        font-size: 3.5vw;
+    }
+    .designed{
+        font-size: 1.25vw;
+    }
+}
+a{
+    text-decoration: none !important;
+    color: darkcyan;
+}

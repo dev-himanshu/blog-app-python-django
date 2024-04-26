@@ -1,0 +1,20 @@
+{% extends 'blogApplication base/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Blog Application: {{ title }}</title>
+    <link rel = "icon" href="{% static 'images/icon.png' %}" type = "image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/logout.css' %}">
+{% endblock title %}
+
+{% block content %}
+    <div class="container" id="logout">
+        <div class="row text-center">
+            <div class="col">
+                <h5>You are successfully logged out.</h5>
+                <p><a href="{% url 'loginPage' %}">click here</a> for login</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

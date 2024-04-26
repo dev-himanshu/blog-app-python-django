@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+        <title>Blog App</title>
+    {% endblock title %}
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+    <!-- Google Font Families-->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Grenze+Gotisch:wght@800&display=swap"
+      rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Bad+Script&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <!--Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+<body>
+  <!--Blog App Heading-->
+  <div class="container-fluid text-center">
+    <div class="row">
+      <div class="col">
+          <a href="{% url 'IndexPage' %}" style="text-decoration: none !important;"><h1 class="navbar-brand mb-0 h1" id="brand">Blog App</h1></a>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+    {% block content %}
+    {% endblock content %}
+
+    <br>
+    <hr>
+  <div class="container">
+      <div class="row text-center">
+        <div class="col">
+          <span style="font-weight: 800;font-family: 'Alata', sans-serif;" class="designed">Designed & Developed by</span>
+          <p style="font-family: 'Bad Script', cursive;font-weight: 800;" class="designed">- Himanshu Mishra</p>
+        </div>
+      </div>
+  </div>
+</body>
+</html>

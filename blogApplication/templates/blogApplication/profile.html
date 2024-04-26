@@ -1,0 +1,80 @@
+{% extends 'blogApplication base/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Blog Application: {{ title }}</title>
+    <link rel = "icon" href="{% static 'images/icon.png' %}" type = "image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock title %}
+
+{% block content %}
+    {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <ul type="disc">
+                      {% for message in messages %}
+                          <div class="alert alert-info" role="alert">
+                              {{ message }}
+                          </div>
+                      {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="container mt-5">
+        <div class="row text-right">
+            <div class="col">
+                    <div class="btn-group">
+                      <button class="btn btn-secondary btn-md dropdown-toggle" id="user_dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ user }}
+                      </button>
+                      <div class="dropdown-menu" id="dropdown">
+                        <a class="dropdown-item" href="{% url 'IndexPage' %}">Home</a>
+                          <a class="dropdown-item" href="{% url 'homePage' %}">My Posts</a>
+                        <a class="dropdown-item" href="{% url 'profilePage' %}">Profile</a>
+                        <a class="dropdown-item" href="{% url 'settingAuthor' %}">Settings</a>
+                          <a class="dropdown-item" href="{% url 'writeBlogPage' %}">Write Blog</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logoutPage' %}">Logout</a>
+                      </div>
+                    </div>
+            </div>  <!--end of col-->
+        </div>  <!--end of row-->
+    </div>  <!--end of container-->
+
+    <div class="container mt-5">
+        <div class="row text-center">
+            <div class="col">
+                <h3>{{ profile.fullname }}</h3>
+            </div>  <!--end of col-->
+        </div>  <!--end of row-->
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputFullName">Full Name</label>
+              <input type="email" class="form-control" id="inputFullName" value="{{ profile.fullname }}" placeholder="e.g. xyz" disabled>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputEmail">Email</label>
+              <input type="email" class="form-control" id="inputEmail" value="{{ profile.emailId }}" placeholder="xyz@abc.com" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputBio">Bio</label>
+            <input type="text" class="form-control" id="inputBio" value="{{ profile.bio }}" placeholder="About me..." disabled>
+          </div>
+          <button type="button" class="btn btn-dark"><a href="{% url 'profileEditPage' %}">Edit</a></button>
+      </form>
+    </div>  <!--end of container-->
+    <div class="container">
+        <div class="row">
+            <div class="col text-left">
+                <h4>Total Post: {{ total }}</h4>
+            </div>  <!--end of col-->
+        </div>  <!--end of row-->
+    </div>
+{% endblock content %}

@@ -1,0 +1,126 @@
+{% extends 'blogApplication base/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    <title>Blog Application: {{ title }}</title>
+    <link rel = "icon" href="{% static 'images/icon.png' %}" type = "image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/specificPost.css' %}">
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row text-right">
+            <div class="col">
+                    {% if request.user.is_authenticated %}
+                    <div class="btn-group">
+                      <button class="btn btn-secondary btn-md dropdown-toggle" id="user_dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ name }}
+                      </button>
+                      <div class="dropdown-menu" id="dropdown">
+                        <a class="dropdown-item" href="{% url 'IndexPage' %}">Home</a>
+                          <a class="dropdown-item" href="{% url 'homePage' %}">My Posts</a>
+                        <a class="dropdown-item" href="{% url 'profilePage' %}">Profile</a>
+                        <a class="dropdown-item" href="{% url 'settingAuthor' %}">Settings</a>
+                          <a class="dropdown-item" href="{% url 'writeBlogPage' %}">Write Blog</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logoutPage' %}">Logout</a>
+                      </div>
+                    </div>
+                {% else %}
+                    <div class="btn-group">
+                      <a href="{% url 'loginPage' %}">
+                          <button class="btn btn-secondary btn-md " type="button">
+                            Login
+                          </button>
+                      </a>
+                    </div>
+                {% endif %}
+            </div>  <!--end of col-->
+        </div>  <!--end of row-->
+    </div>  <!--end of container-->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h6>{{ blog_data.title }}</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span style="font-size: 21px"><small>{{ blog_data.blogDateTime }}</small></span>
+            </div>
+        </div>
+        <div class="row justify-content mt-4">
+            <div class="col" id="post_content">
+                <p>{{ blog_data.blog }}</p>
+            </div>
+        </div>
+        <blockquote class="blockquote text-right">
+          <footer class="blockquote-footer" style="font-size: 1.25vw;">Posted by <cite title="Source Title">{{ blog_data.author.fullname }}</cite></footer>
+        </blockquote>
+    </div>
+
+    <div class="container">
+        <h4>Comments</h4>
+        <form method="post">
+            {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              {{ commentForm.readerName }}
+            </div>
+            <div class="form-group col-md-6">
+              {{ commentForm.readerEmail }}
+            </div>
+          </div>
+          <div class="form-group">
+              {{ commentForm.readerComment }}
+          </div>
+          <button type="submit" class="btn btn-primary mb-3">Comment</button>
+        </form>
+    </div>
+
+
+    <div class="container">
+        {% if all_comments %}
+            {% for i in all_comments %}
+                <div class="card" style="width: 50% !important;">
+                  <div class="row no-gutters">
+                    <div class="col-6">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ i.readerName }}</h5>
+                        <span class="card-text">Comment: {{ i.readerComment }}</span>
+                        <p class="card-text"><small class="text-muted">Commented on: {{ i.commentDateTime }}</small></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <!--paginator-->
+        <div class="row mt-2">
+        <div class="col">
+          <nav aria-label="Page navigation example">
+           <div class="pagination" style="float: right !important;color: #bcbab8 !important;">
+                <span class="step-links">
+                    {% if all_comments.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ all_comments.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="current">
+                        Page {{ all_comments.number }} of {{ all_comments.paginator.num_pages }}.
+                    </span>
+                    {% if all_comments.has_next %}
+                        <a href="?page={{ all_comments.next_page_number }}">next</a>
+                        <a href="?page={{ all_comments.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+           </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
